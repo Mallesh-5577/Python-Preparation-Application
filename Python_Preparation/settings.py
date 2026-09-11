@@ -29,12 +29,13 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.environ.get(
-        'ALLOWED_HOSTS', 'localhost,127.0.0.1,testserver'
+        'ALLOWED_HOSTS',
+        'localhost,127.0.0.1,testserver,python-preparation.onrender.com',
     ).split(',')
     if host.strip()
 ]
