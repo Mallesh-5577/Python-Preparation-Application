@@ -1,0 +1,40 @@
+{% extends 'base.html' %}{% block content %}
+<section class="detail-hero container">
+  <a class="back-link" href="{% url 'core:topics' %}"><- All topics</a>
+  <p class="eyebrow">Topic guide</p>
+  <h1>{{ topic.name }}</h1>
+  <p class="definition">{{ topic.definition }}</p>
+</section>
+<section class="container content-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Knowledge check</p>
+      <h2>Questions and answers</h2>
+    </div>
+    <span class="count-badge">{{ questions|length }} questions</span>
+  </div>
+  <div class="question-list">
+    {% for question in questions %}
+    <article class="question-card">
+      <span class="question-number"
+        >{{ forloop.counter|stringformat:'02d' }}</span
+      >
+      <div>
+        <h3>{{ question.question_text }}</h3>
+        <div class="answer">
+          <p>{{ question.answer_text }}</p>
+          {% if question.code_example %}
+          <pre><code>{{ question.code_example }}</code></pre>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% empty %}
+    <div class="empty-state">
+      <h2>Questions are coming soon.</h2>
+      <p>Add questions from the admin panel.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

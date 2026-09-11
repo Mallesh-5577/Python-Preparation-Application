@@ -1,0 +1,29 @@
+{% extends 'base.html' %}{% block content %}
+<section class="auth-shell container">
+  <div class="auth-intro">
+    <p class="eyebrow">Start your streak</p>
+    <h1>Make preparation a practice.</h1>
+    <p>Save your place and return to the concepts that matter most.</p>
+  </div>
+  <div class="form-card">
+    <h2>Create account</h2>
+    <p class="form-lead">Your next strong answer starts here.</p>
+    <form method="post" novalidate>
+      {% csrf_token %} {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }} {% if field.help_text %}<small
+          >{{ field.help_text|safe }}</small
+        >{% endif %} {% for error in field.errors %}<span class="error"
+          >{{ error }}</span
+        >{% endfor %}
+      </div>
+      {% endfor %}
+      <button class="button button-full" type="submit">Create account</button>
+    </form>
+    <p class="form-switch">
+      Already learning? <a href="{% url 'core:login' %}">Log in</a>
+    </p>
+  </div>
+</section>
+{% endblock %}

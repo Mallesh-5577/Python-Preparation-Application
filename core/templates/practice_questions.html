@@ -1,0 +1,40 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-heading container">
+  <p class="eyebrow">Think it through</p>
+  <h1>Practice to gain python knowledge.</h1>
+  <p>Work from the prompt, then reveal a hint when you need a nudge.</p>
+</section>
+<section class="container content-section">
+  {% for topic in topics %}{% if topic.practice_questions.all %}
+  <div class="group-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Topic {{ forloop.counter|stringformat:'02d' }}</p>
+        <h2>{{ topic.name }}</h2>
+      </div>
+    </div>
+    <div class="practice-list">
+      {% for question in topic.practice_questions.all %}
+      <article class="practice-card">
+        <h3>{{ question.question_text }}</h3>
+        <button
+          class="hint-button"
+          type="button"
+          data-target="hint-{{ question.id }}"
+          aria-expanded="false"
+        >
+          Show hint <span>+</span>
+        </button>
+        <div class="hint" id="hint-{{ question.id }}" hidden>
+          <strong>Hint</strong>
+          <p>{{ question.hint_text }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}{% empty %}
+  <div class="empty-state"><h2>No practice questions yet.</h2></div>
+  {% endfor %}
+</section>
+{% endblock %}

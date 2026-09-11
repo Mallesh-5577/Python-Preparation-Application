@@ -1,0 +1,54 @@
+{% extends 'base.html' %}{% block content %}
+<section class="hero container">
+  <div class="hero-copy">
+    <p   class="eyebrow">A Best Way To Prepare</p>
+    <h1>Turn Python knowledge into interview confidence.</h1>
+    <p class="hero-text">
+      Build strong fundamentals, practice with intent, and walk into your next
+      technical conversation with a clearer mind.
+    </p>
+    <div class="hero-actions">
+      <a class="button" href="{% url 'core:topics' %}">Explore topics</a>
+      {% if not user.is_authenticated %}<a
+        class="button button-ghost"
+        href="{% url 'core:signup' %}"
+        >Create free account</a
+      >{% endif %}
+    </div>
+  </div>
+  <div class="hero-art" aria-label="Python study dashboard illustration">
+    <div class="code-window">
+      <div class="window-bar">
+        <i></i><i></i><i></i><span>interview_ready.py</span>
+      </div>
+      <pre><code><span class="code-muted">def</span> prepare(topic):
+    <span class="code-keyword">while</span> not confident(topic):
+        learn(topic)
+        practice(topic)
+    <span class="code-keyword">return</span> <span class="code-string">"ready"</span></code></pre>
+    </div>
+    <div class="floating-note">01 <span>Learn by explaining</span></div>
+  </div>
+</section>
+<section class="feature-strip">
+  <div class="container feature-grid">
+    <div>
+      <span class="feature-number">01</span>
+      <h2>Understand</h2>
+      {% comment %} <p>Definitions and worked answers that make the fundamentals stick.</p> {% endcomment %}
+    </div>
+    <div>
+      <span class="feature-number">02</span>
+      <h2>Practice</h2>
+      {% comment %} <p>Hints that nudge you forward without giving away the thinking.</p> {% endcomment %}
+    </div>
+    <div>
+      <span class="feature-number">03</span>
+      <h2>Perform</h2>
+      {% comment %} <p>
+        Interview prompts that help you rehearse concise, confident answers.
+      </p> {% endcomment %}
+    </div>
+  </div>
+</section>
+{% endblock %}

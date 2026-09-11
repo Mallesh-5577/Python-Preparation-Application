@@ -1,0 +1,85 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}PyPrep{% endblock %} | Python Preparation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'core/css/main.css' %}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container">
+        <a class="brand" href="{% url 'core:home' %}"
+          ><span class="brand-mark">P</span><span>Python Preparation</span></a
+        >
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          Menu
+        </button>
+        <div class="nav-links">
+          <a href="{% url 'core:home' %}">Home</a>
+          <a href="{% url 'core:topics' %}">Topics</a>
+          <a href="{% url 'core:practice-questions' %}">Practice</a>
+          <a href="{% url 'core:interview-questions' %}">Interview</a>
+          <form
+            class="nav-search"
+            action="{% url 'core:topics' %}"
+            method="get"
+          >
+            <input
+              type="search"
+              name="q"
+              placeholder="Search topics"
+              value="{{ request.GET.q|default:'' }}"
+              aria-label="Search topics"
+            />
+          </form>
+          {% if user.is_authenticated %}
+          <span class="welcome"
+            >Hi, {{ user.first_name|default:user.username }}</span
+          >
+          <a
+            class="button button-small button-outline"
+            href="{% url 'core:logout' %}"
+            >Logout</a
+          >
+          {% else %}
+          <a href="{% url 'core:login' %}">Login</a>
+          <a class="button button-small" href="{% url 'core:signup' %}"
+            >Sign up</a
+          >
+          {% endif %}
+        </div>
+      </nav>
+    </header>
+    {% if messages %}
+    <div class="container messages">
+      {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <main>{% block content %}{% endblock %}</main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand" href="{% url 'core:home' %}"
+          ><span class="brand-mark">P</span><span>Python Preparation</span></a
+        >
+        <span>mnscc.in</span>
+        <a href="tel:8977259147"> Contact : 8977259147</a>
+      </div>
+    </footer>
+    <script src="{% static 'core/js/main.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-heading container">
+  <p class="eyebrow">Most IMP Questions</p>
+  <h1>Most Asked interview Questions </h1>
+  <p>
+    Practice... Practice... Practice...
+  </p>
+</section>
+<section class="container content-section">
+  {% for topic in topics %}{% if topic.interview_questions.all %}
+  <div class="group-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Interview set</p>
+        <h2>{{ topic.name }}</h2>
+      </div>
+    </div>
+    <div class="interview-list">
+      {% for question in topic.interview_questions.all %}
+      <article class="interview-card">
+        <span>{{ forloop.counter|stringformat:'02d' }}</span>
+        <h3>{{ question.question_text }}</h3>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}{% empty %}
+  <div class="empty-state"><h2>No interview questions yet.</h2></div>
+  {% endfor %}
+</section>
+{% endblock %}

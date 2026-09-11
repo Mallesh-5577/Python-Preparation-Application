@@ -1,0 +1,37 @@
+{% extends 'base.html' %}{% block content %}
+<section class="page-heading container">
+  <p class="eyebrow">The syllabus</p>
+  <h1>Choose your next topic.</h1>
+  <p>
+    Focused notes and questions for the Python ideas.
+  </p>
+  <form class="large-search" method="get">
+    <input
+      type="search"
+      name="q"
+      value="{{ query }}"
+      placeholder="Search by topic name..."
+    /><button class="button" type="submit">Search</button>
+  </form>
+</section>
+<section class="container content-section">
+  {% if query %}
+  <p class="result-label">Results for “{{ query }}”</p>
+  {% endif %}
+  <div class="topic-grid">
+    {% for topic in topics %}<a
+      class="topic-card"
+      href="{% url 'core:topic-detail' topic.slug %}"
+      ><span class="card-index">{{ forloop.counter|stringformat:'02d' }}</span>
+      <h2>{{ topic.name }}</h2>
+      <p>{{ topic.definition|truncatewords:20 }}</p>
+      <span class="card-link">Study topic <span>-></span></span></a
+    >{% empty %}
+    <div class="empty-state">
+      <h2>No topics found</h2>
+      <p>Try a different search term.</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
