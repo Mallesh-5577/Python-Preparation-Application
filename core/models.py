@@ -5,6 +5,7 @@ class Topic(models.Model):
 	name = models.CharField(max_length=120)
 	slug = models.SlugField(unique=True)
 	definition = models.TextField()
+	guide_content = models.TextField(blank=True)
 	display_order = models.PositiveIntegerField(default=0)
 
 	class Meta:

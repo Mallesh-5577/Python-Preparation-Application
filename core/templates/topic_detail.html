@@ -5,6 +5,33 @@
   <h1>{{ topic.name }}</h1>
   <p class="definition">{{ topic.definition }}</p>
 </section>
+{% if guide_sections %}
+<section class="container content-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Complete guide</p>
+      <h2>Study notes</h2>
+    </div>
+  </div>
+  <div class="guide-sections">
+    {% for section in guide_sections %}
+    <article class="guide-section">
+      <div class="guide-section-marker">
+        {{ forloop.counter|stringformat:'02d' }}
+      </div>
+      <div class="guide-section-content">
+        <h3>{{ section.heading }}</h3>
+        {% for paragraph in section.paragraphs %}
+        <p>{{ paragraph }}</p>
+        {% endfor %} {% for code in section.code_blocks %}
+        <pre class="guide-code"><code>{{ code }}</code></pre>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
 <section class="container content-section">
   <div class="section-heading">
     <div>
@@ -22,6 +49,7 @@
       <div>
         <h3>{{ question.question_text }}</h3>
         <div class="answer">
+          <strong class="answer-label">Answer</strong>
           <p>{{ question.answer_text }}</p>
           {% if question.code_example %}
           <pre><code>{{ question.code_example }}</code></pre>
