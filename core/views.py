@@ -70,14 +70,17 @@ def parse_guide_sections(content):
 			flush_text()
 			if 'practice questions' in match.group(1).lower():
 				break
-			current = {'heading': clean_markdown(match.group(1)), 'paragraphs': [], 'code_blocks': []}
+			heading = clean_markdown(match.group(1))
+			if heading.casefold() == 'overview':
+				current = None
+				continue
+			current = {'heading': heading, 'paragraphs': [], 'code_blocks': []}
 			sections.append(current)
 			continue
 		if line.startswith('# '):
 			continue
 		if current is None:
-			current = {'heading': 'Overview', 'paragraphs': [], 'code_blocks': []}
-			sections.append(current)
+			continue
 		text_lines.append(line)
 
 	flush_text()
